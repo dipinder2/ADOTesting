@@ -38,12 +38,20 @@ namespace ADOTesting
                 }
                 Console.WriteLine();
             }
-
+            reader.Close();
             IDbCommand sec = conn.CreateCommand();
-            sec.CommandText = "SELECT * FROM movies LEFT JOIN ratings ON movies.RatingID = ratings.ID";
+            sec.CommandText = "SELECT * FROM movies LEFT JOIN ratings ON movies.RatingID = ratings.ID;";
             var data = sec.ExecuteReader();
 
+            while (data.Read())
+            {
 
+                for (int i = 0; i < data.FieldCount; i++)
+                {
+                    Console.Write($"{data[i]}");
+                }
+                Console.WriteLine();
+            }
             conn.Close();
         }
     }
